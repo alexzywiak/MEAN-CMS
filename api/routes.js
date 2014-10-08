@@ -1,80 +1,79 @@
 // routes file
 
-var Todo = require('./models/todoModel.js');
+var doc = require('./models/docModel.js');
 
 module.exports = function(app){
 
   // GET ===============================
-  // Gets all todos
-  app.get('/api/todos', function(req, res){
+  // Gets all docs
+  app.get('/api/docs', function(req, res){
 
-    Todo.find({}, function(err, todos){
+    doc.find({}, function(err, docs){
       
       if(err)
         res.send(err);
 
-      res.json(todos);
+      res.json(docs);
 
     }); 
   });
 
-  // GET TODO ===============================
-  // Returns a single todo by _id
-  app.get('/api/todos/:todo_id', function(req, res){
+  // GET doc ===============================
+  // Returns a single doc by _id
+  app.get('/api/docs/:doc_id', function(req, res){
     
-    Todo.findOne({
-      _id : req.params.todo_id
-    }, function(err, todo){
+    doc.findOne({
+      _id : req.params.doc_id
+    }, function(err, doc){
       
       if(err)
         res.send(err);
 
-      res.json(todo);
+      res.json(doc);
       
     });
   });
 
   // CREATE ===============================
-  // Creates and saves a new todo
-  app.post('/api/todos', function(req, res){
-    console.log(req.body);
-    Todo.create({
-      todo    : req.body.text,
-      author  : 'Big Lebowski',
+  // Creates and saves a new doc
+  app.post('/api/docs', function(req, res){
+
+    doc.create({
+      text    : req.body.text,
       done    : false
     }, function(err){
 
       if(err)
         res.send(err);
 
-      Todo.find({}, function(err, todos){
+      doc.find({}, function(err, docs){
 
         if(err)
           res.send(err);
 
-        res.json(todos);
+        res.json(docs);
 
       });
     });
   });
 
   // REMOVE ===============================
-  // Deletes a todo by id
-  app.delete('/api/todos/:todo_id', function(req, res){
+  // Deletes a doc by id
+  app.delete('/api/docs/:doc_id', function(req, res){
 
-    Todo.remove({
-      _id : req.params.todo_id
+    doc.remove({
+      _id : req.params.doc_id
     }, function(err){
       
       if(err)
         res.send(err);
 
-      Todo.find({}, function(err, todos){
+      doc.find({}, function(err, docs){
 
         if(err)
           res.send(err);
 
-        res.json(todos);
+        res.json(docs);
 
       });
     });

@@ -1,5 +1,5 @@
 // database config file
 
 module.exports = {
-  'url' : 'mongodb://localhost/meantodo'
+  'url' : 'mongodb://localhost/admin'
 };
