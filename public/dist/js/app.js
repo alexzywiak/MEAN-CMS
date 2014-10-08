@@ -1,102 +1,92 @@
-// Doc Controller
+angular.module('MEANCMS.controllers', []);
+// Post Controller
 
-angular.module('docCtrl', [])
+angular.module('MEANCMS.controllers')
 
-  .controller('mainCtrl', ["$http", "$scope", "docs", function($http, $scope, docs){
+  .controller('homeCtrl', ["$http", "$scope", "$location", "Posts", function($http, $scope, $location, Posts){
 
     // Initialize Form Data
     $scope.formData = {};
 
     // GET ===============================
-    // When on the landing page get all the docs and display them
+    // When on the landing page get all the posts and display them
     
-    docs.get()
+    Posts.get()
       .success(function(data){
-        $scope.docs = data;
+        $scope.posts = data;
       });
 
     // CREATE ===============================
-    // Function to add a Doc with a nifty button click
+    // Function to add a post with a nifty button click
     
-    $scope.createDoc = function(){
-      console.log('Create Doc');
+    $scope.createPost = function(){
+      console.log($scope.formData);
       if(!$.isEmptyObject($scope.formData)){
 
-        docs.createDoc($scope.formData)
+        Posts.createPost($scope.formData)
           .success(function(data){
             $scope.formData = {};
-            $scope.docs = data;
+            $location.path('/');
+            $scope.posts = data;
           });
       }
     };
 
     // REMOVE ===============================
-    // Function to remove Doc given id
+    // Function to remove post given id
     
-    $scope.removeDoc = function(id){
+    $scope.removePost = function(id){
 
-      docs.removeDoc(id)
+      Posts.removePost(id)
         .success(function(data){
-          $scope.docs = data;
-        });
-    };
-  }])
-
-  .controller('detailsCtrl', ["$http", "$scope", "$routeParams", "docs", function($http, $scope, $routeParams, docs){
-
-    // Initialize Form Data
-    $scope.DocData = {};
-    $scope.DocId = $routeParams.Doc_id;
-
-    // GET Doc ===============================
-    // Retrieves Doc by id
-
-    docs.getDoc($scope.DocId)
-      .success(function(data){
-        console.log('Loaded');
-        $scope.DocData = data;
-      });
-    // REMOVE ===============================
-    // Function to remove Doc given id
-    
-    $scope.removeDoc = function(id){
-
-      docs.removeDoc(id)
-        .success(function(data){
-          $scope.docs = data;
+          $scope.posts = data;
         });
     };
   }]);
+
 // Core
 
 angular.module('meanTodo', [
   'ngRoute',
-  'docCtrl', 
-  'docService'])
+  'textAngular',
+  'postCtrl', 
+  'postService'])
 .config(["$routeProvider", function($routeProvider){
   $routeProvider
     .when('/',{
       templateUrl : 'views/main.html',
       controller : 'mainCtrl'
+    })
+    .when('/createPost',{
+      templateUrl : 'views/createPost.html',
+      controller : 'mainCtrl'
+    })
+    .when('/viewPost/:post_id', {
+      templateUrl : 'views/viewPost.html',
+      controller : 'viewPostCtrl'
+    })
+    .when('/managePost', {
+      templateUrl : 'views/managePost.html',
+      controller : 'mainCtrl'
     });
 }]);
-// Doc Factory Service
+// Post Factory Service
 
-angular.module('docService', [])
+angular.module('postService', [])
 
-  .factory('docs', ["$http", function($http){
+  .factory('Posts', ["$http", function($http){
     return {
       get : function() {
-        return $http.get('api/docs');
+        return $http.get('api/posts');
       },
-      getDoc : function(docId){
-        return $http.get('api/docs/' + docId);
+      getPost : function(postId){
+        return $http.get('api/posts/' + postId);
       },
-      createDoc : function(docs){
-        return $http.post('api/docs', docs);
+      createPost : function(posts){
+        return $http.post('api/posts', posts);
       },
-      removeDoc : function(docId) {
-        return $http.delete('api/docs/' + docId);
+      removePost : function(postId) {
+        return $http.delete('api/posts/' + postId);
       }
     };
   }]);
