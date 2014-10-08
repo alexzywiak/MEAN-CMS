@@ -1,6 +1,6 @@
 // Post Controller
 
-angular.module('MEANCMS.controllers')
+angular.module('meanCms.controllers')
 
   .controller('homeCtrl', function($http, $scope, $location, Posts){
 

@@ -1,8 +1,8 @@
 {
-  "name": "meanTodo",
+  "name": "MEANCMS",
   "version": "0.0.1",
   "description": "MEAN Todo app to prove I still go it.",
-  "author": "Alex Zywiak <alex.zywiak8@gmail.com>",
+  "author": "Alex Zywiak <alex.zywiak@gmail.com>",
   "repository" :
     { "type" : "git",
       "url" : "http://github.com/alexzywiak/MEANCMS"

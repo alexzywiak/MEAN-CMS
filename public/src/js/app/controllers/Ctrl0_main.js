@@ -1,1 +1,1 @@
-angular.module('MEANCMS.controllers', []);
+angular.module('meanCms.controllers', []);

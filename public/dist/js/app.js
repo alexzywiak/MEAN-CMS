@@ -1,7 +1,7 @@
-angular.module('MEANCMS.controllers', []);
+angular.module('meanCms.controllers', []);
 // Post Controller
 
-angular.module('MEANCMS.controllers')
+angular.module('meanCms.controllers')
 
   .controller('homeCtrl', ["$http", "$scope", "$location", "Posts", function($http, $scope, $location, Posts){
 
@@ -46,20 +46,20 @@ angular.module('MEANCMS.controllers')
 
 // Core
 
-angular.module('meanTodo', [
+angular.module('meanCms', [
   'ngRoute',
   'textAngular',
-  'postCtrl', 
+  'meanCms.controllers', 
   'postService'])
 .config(["$routeProvider", function($routeProvider){
   $routeProvider
     .when('/',{
       templateUrl : 'views/main.html',
-      controller : 'mainCtrl'
+      controller : 'homeCtrl'
     })
     .when('/createPost',{
       templateUrl : 'views/createPost.html',
-      controller : 'mainCtrl'
+      controller : 'homeCtrl'
     })
     .when('/viewPost/:post_id', {
       templateUrl : 'views/viewPost.html',
@@ -67,7 +67,7 @@ angular.module('meanTodo', [
     })
     .when('/managePost', {
       templateUrl : 'views/managePost.html',
-      controller : 'mainCtrl'
+      controller : 'homeCtrl'
     });
 }]);
 // Post Factory Service
