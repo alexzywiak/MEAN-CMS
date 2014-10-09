@@ -1,0 +1,10 @@
+<h1>Edit the Posts</h1>
+<ul>
+  <li ng-repeat="post in posts">
+    {{post.title}}
+    <button ng-click="removePost(post._id)">Delete</button>
+    <a href="#/editPost/{{post._id}}"><button>Edit</button></a>
+  </li>
+</ul>
+<div ng-repeat="post in posts">
+</div>

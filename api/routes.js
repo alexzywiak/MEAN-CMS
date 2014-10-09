@@ -65,6 +65,27 @@ module.exports = function(app){
     });
   });
 
+  // UPDATE ===============================
+  // Updates a post
+  app.post('/api/updatePost/:post_id', function(req, res){
+
+    Post.findOne(
+      { _id : req.params.post_id },
+      function(err, post){
+        
+        if(err) throw err;
+        
+        post.title  = req.body.title;
+        post.body   = req.body.body;
+
+        post.save(function(err, post){
+          if(err) throw err;
+          res.json(post);
+        });
+      }
+    );
+  });
+
   // REMOVE ===============================
   // Deletes a post by id
   app.delete('/api/posts/:post_id', function(req, res){

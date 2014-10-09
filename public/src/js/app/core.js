@@ -15,12 +15,16 @@ angular.module('meanCms', [
       templateUrl : 'views/createPost.html',
       controller : 'homeCtrl'
     })
-    .when('/viewPost/:post_id', {
+    .when('/posts/:post_id', {
       templateUrl : 'views/viewPost.html',
       controller : 'viewPostCtrl'
     })
-    .when('/managePost', {
-      templateUrl : 'views/managePost.html',
+    .when('/managePosts', {
+      templateUrl : 'views/managePosts.html',
       controller : 'homeCtrl'
+    })
+    .when('/editPost/:post_id', {
+      templateUrl : 'views/editPost.html',
+      controller : 'editPostCtrl'
     });
 });

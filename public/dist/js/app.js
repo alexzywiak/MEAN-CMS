@@ -20,7 +20,7 @@ angular.module('meanCms.controllers')
     // Function to add a post with a nifty button click
     
     $scope.createPost = function(){
-      console.log($scope.formData);
+
       if(!$.isEmptyObject($scope.formData)){
 
         Posts.createPost($scope.formData)
@@ -43,7 +43,54 @@ angular.module('meanCms.controllers')
         });
     };
   }]);
+// Single Post Controller
 
+angular.module('meanCms.controllers')
+
+  .controller('viewPostCtrl', ["$http", "$scope", "$location", "$routeParams", "Posts", function($http, $scope, $location, $routeParams, Posts){
+
+    //Set Post
+    $scope.post = {};
+    $scope.post_id = $routeParams.post_id;
+
+    Posts.getPost($scope.post_id)
+      .success(function(data){
+        $scope.post = data;
+      });
+  }]);
+// Manage Posts Controller
+
+angular.module('meanCms.controllers')
+
+  .controller('editPostCtrl', ["$scope", "$routeParams", "Posts", function($scope, $routeParams, Posts){
+
+    // Initialize $scopes
+
+    $scope.formData = {};
+    $scope.post_id = $routeParams.post_id;
+
+    // GET ===============================
+    //Gets Post
+    
+    Posts.getPost($scope.post_id)
+      .success(function(data){
+        $scope.formData = data;
+      });
+
+    // UPDATE ===============================
+    // Updates the post
+    
+    $scope.updatePost = function(id){
+
+      if(!$.isEmptyObject($scope.formData)){
+
+        Posts.updatePost(id, $scope.formData)
+          .success(function(data){
+            $scope.formData = data;
+          });
+      }
+    };
+  }]);
 // Core
 
 angular.module('meanCms', [
@@ -61,13 +108,17 @@ angular.module('meanCms', [
       templateUrl : 'views/createPost.html',
       controller : 'homeCtrl'
     })
-    .when('/viewPost/:post_id', {
+    .when('/posts/:post_id', {
       templateUrl : 'views/viewPost.html',
       controller : 'viewPostCtrl'
     })
-    .when('/managePost', {
-      templateUrl : 'views/managePost.html',
+    .when('/managePosts', {
+      templateUrl : 'views/managePosts.html',
       controller : 'homeCtrl'
+    })
+    .when('/editPost/:post_id', {
+      templateUrl : 'views/editPost.html',
+      controller : 'editPostCtrl'
     });
 }]);
 // Post Factory Service
@@ -84,6 +135,9 @@ angular.module('postService', [])
       },
       createPost : function(posts){
         return $http.post('api/posts', posts);
+      },
+      updatePost : function(postId, post){
+        return $http.post('api/updatePost/' + postId, post);
       },
       removePost : function(postId) {
         return $http.delete('api/posts/' + postId);

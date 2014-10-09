@@ -19,7 +19,7 @@ angular.module('meanCms.controllers')
     // Function to add a post with a nifty button click
     
     $scope.createPost = function(){
-      console.log($scope.formData);
+
       if(!$.isEmptyObject($scope.formData)){
 
         Posts.createPost($scope.formData)

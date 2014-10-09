@@ -13,6 +13,9 @@ angular.module('postService', [])
       createPost : function(posts){
         return $http.post('api/posts', posts);
       },
+      updatePost : function(postId, post){
+        return $http.post('api/updatePost/' + postId, post);
+      },
       removePost : function(postId) {
         return $http.delete('api/posts/' + postId);
       }
