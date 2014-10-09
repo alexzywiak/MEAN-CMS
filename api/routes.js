@@ -1,6 +1,6 @@
 // routes file
 
-var Post = require('./models/postModel.js');
+var Post = require('./models/post-model.js');
 
 module.exports = function(app){
 
