@@ -23,7 +23,7 @@ var express      = require('express'),
 // Configuration ===============================
 
 mongoose.connect( configDb.url );
-require('./api/config/passport.js')(passport, userRole);
+require('./api/config/passport.js')(passport); //Add userRole later
 
 // Middlewarez
 app.use( morgan( 'dev' ) );
@@ -38,10 +38,10 @@ app.use( express.static( __dirname + '/public' ) );
 app.use( session({ secret : 'meancmssuperdupersecret' }));
 app.use( passport.initialize() );
 app.use( passport.session() );
-app.use( userRole.middleware() );
+//app.use( userRole.middleware() );
 
 // Routes ===============================
-require('./api/routes.js')(app, passport, userRole);
+require('./api/routes.js')(app, passport); //Add userRole
 
 // Angular ===============================
 app.get('*', function(req, res){

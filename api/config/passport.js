@@ -28,7 +28,7 @@ module.exports = function(passport){
     passReqToCallback : true
   }, 
   function(req, email, password, done){
-
+    
     if(err) return done(err);
 
     // Checks if user exists

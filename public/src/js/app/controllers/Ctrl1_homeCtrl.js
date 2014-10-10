@@ -2,7 +2,7 @@
 
 angular.module('meanCms.controllers')
 
-  .controller('homeCtrl', function($http, $scope, $location, Posts){
+  .controller('homeCtrl', function($http, $scope, $location, Posts, User){
 
     // Initialize Form Data
     $scope.formData = {};

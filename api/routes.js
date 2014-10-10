@@ -2,7 +2,7 @@
 
 var Post = require('./models/post-model.js');
 
-module.exports = function(app){
+module.exports = function(app, passport){
 
   // GET ===============================
   // Gets all posts
@@ -107,4 +107,25 @@ module.exports = function(app){
       });
     });
   });
+
+  // USER AUTHENTICATION ===============================
+  
+  // Login
+  app.post('/api/login', passport.authenticate('local-login', {
+    successRedirect : '/',
+    failureRedirect : '/login',
+    failureFlash : true
+  }));
+
+  // Logout
+  app.get('/api/logout', function(req, res){
+    req.logout();
+  });
+
+  // Sign Up
+  app.post('/api/signup', passport.authenticate('local-signup', {
+    successRedirect : '/index',
+    failureRedirect : '/signup',
+    failureFlash : true
+  }));
 };

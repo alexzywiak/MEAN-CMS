@@ -4,14 +4,23 @@ angular.module('meanCms', [
   'ngRoute',
   'textAngular',
   'meanCms.controllers', 
-  'postService'])
+  'postService',
+  'userService'])
 .config(function($routeProvider){
   $routeProvider
     .when('/',{
       templateUrl : 'views/main.html',
       controller : 'homeCtrl'
     })
-    .when('/createPost',{
+    .when('/login', {
+      templateUrl : 'views/login.html',
+      controller : 'userAuthCtrl'
+    })
+    .when('/signup', {
+      templateUrl : 'views/signup.html',
+      controller : 'userAuthCtrl'
+    })
+    .when('/createPost', {
       templateUrl : 'views/createPost.html',
       controller : 'homeCtrl'
     })
