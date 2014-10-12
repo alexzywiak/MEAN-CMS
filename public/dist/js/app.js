@@ -13,7 +13,8 @@ angular.module('meanCms.controllers')
     
     Posts.get()
       .success(function(data){
-        $scope.posts = data;
+        $scope.posts = data.posts;
+        $scope.user  = data.user;
       });
 
     // CREATE ===============================

@@ -13,7 +13,7 @@ module.exports = function(app, passport){
       if(err)
         res.send(err);
 
-      res.json(posts);
+      res.json({posts : posts, user : req.user});
 
     }); 
   });

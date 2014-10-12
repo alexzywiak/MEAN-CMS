@@ -29,10 +29,10 @@ module.exports = function(passport){
   }, 
   function(req, email, password, done){
     
-    if(err) return done(err);
+    //if(err) return done(err);
 
     // Checks if user exists
-    if(user){
+    if(req.user){
       
       return done(null, false, req.flash('signupMessage', 'Dude, you already signed up man.  Lay off the bong.'));
     
@@ -42,7 +42,7 @@ module.exports = function(passport){
       var newUser = new User();
 
       newUser.local.email     = email;
-      newuser.local.password  = newUser.generateHash(password);
+      newUser.local.password  = newUser.generateHash(password);
       newUser.role            = 'contributor';
 
       newUser.save(function(err){
